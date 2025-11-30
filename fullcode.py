@@ -11,8 +11,8 @@ rightMotor = Motor(Ports.PORT2, GearSetting.RATIO_18_1, True)
 intake1 = Motor(Ports.PORT8, GearSetting.RATIO_18_1, False)
 intake2 = Motor(Ports.PORT3, GearSetting.RATIO_18_1, True)
 
-intake1_speed = 75
-intake2_speed = 75
+intake1_speed = 50
+intake2_speed = 50
 
 drivetrain = DriveTrain(leftMotor, rightMotor, 319.19, 320, 40, MM)
 
