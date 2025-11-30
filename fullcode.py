@@ -20,7 +20,7 @@ class Config:
     INTAKE2_REVERSED = True
     
     # Intake settings
-    INTAKE_SPEED = 75  # Percent
+    INTAKE_SPEED = 50  # Percent
     
     # Drivetrain dimensions (in millimeters)
     WHEEL_DIAMETER = 319.19
