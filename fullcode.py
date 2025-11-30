@@ -9,6 +9,9 @@ rightMotor = Motor(Ports.PORT2, GearSetting.RATIO_18_1, True)
 intake1 = Motor(Ports.PORT8, GearSetting.RATIO_18_1, False)
 intake2 = Motor(Ports.PORT3, GearSetting.RATIO_18_1, True)
 
+intake1_speed = 75
+intake2_speed = 75
+
 drivetrain = DriveTrain(leftMotor, rightMotor, 319.19, 320, 40, MM)
 
 DEADBAND = 5
@@ -23,25 +26,32 @@ def autonomous():
 
 def drivercontrol():
     while True:
-        forward = db(controller.axis3.position())
-        turn    = db(controller.axis1.position())
+        # Brake button L2
+        if controller.buttonL2.pressing():
+            leftMotor.stop(BRAKE)
+            rightMotor.stop(BRAKE)
+        else:
+            forward = db(controller.axis3.position())
+            turn    = db(controller.axis1.position())
 
-        left_speed  = forward + turn
-        right_speed = forward - turn
+            left_speed  = forward + turn
+            right_speed = forward - turn
 
-        if controller.buttonL1.pressing():
-            left_speed  *= 0.20
-            right_speed *= 0.20
+            # Slow mode with L1
+            if controller.buttonL1.pressing():
+                left_speed  *= 0.20
+                right_speed *= 0.20
 
-        leftMotor.spin(FORWARD, left_speed, PERCENT)
-        rightMotor.spin(FORWARD, right_speed, PERCENT)
-
+            leftMotor.spin(FORWARD, left_speed, PERCENT)
+            rightMotor.spin(FORWARD, right_speed, PERCENT)
+        
+        # Intake controls
         if controller.buttonR1.pressing():
-            intake1.spin(FORWARD, 100, PERCENT)
-            intake2.spin(FORWARD, 100, PERCENT)
+            intake1.spin(FORWARD, intake1_speed, PERCENT)
+            intake2.spin(FORWARD, intake2_speed, PERCENT)
         elif controller.buttonR2.pressing():
-            intake1.spin(REVERSE, 100, PERCENT)
-            intake2.spin(REVERSE, 100, PERCENT)
+            intake1.spin(REVERSE, intake1_speed, PERCENT)
+            intake2.spin(REVERSE, intake2_speed, PERCENT)
         else:
             intake1.stop(COAST)
             intake2.stop(COAST)
@@ -49,3 +59,10 @@ def drivercontrol():
         wait(20, MSEC)
 
 comp = Competition(drivercontrol, autonomous)
+
+
+
+
+
+
+
