@@ -43,8 +43,8 @@ controller = Controller()
 leftMotor  = Motor(Ports.PORT1, GearSetting.RATIO_18_1, False)
 rightMotor = Motor(Ports.PORT2, GearSetting.RATIO_18_1, True)
 
-intake1 = Motor(Ports.PORT8, GearSetting.RATIO_18_1, False)
-intake2 = Motor(Ports.PORT3, GearSetting.RATIO_18_1, True)
+intake1 = Motor(Ports.PORT2, GearSetting.RATIO_18_1, False)
+intake2 = Motor(Ports.PORT5, GearSetting.RATIO_18_1, True)
 
 intake1_speed = 50
 intake2_speed = 50
@@ -61,7 +61,7 @@ def autonomous():
     intake2.spin(FORWARD, intake2_speed, PERCENT)
     intake1.spin(FORWARD, intake1_speed, PERCENT)
     wait(1000, MSEC)
-    intake1.stop(COAST)
+    intake1.stop(COAST) 
 
     drivetrain.drive_for(FORWARD, 1000, MM)
 
@@ -100,9 +100,3 @@ def drivercontrol():
         wait(20, MSEC)
 
 comp = Competition(drivercontrol, autonomous)
-
-
-
-
-
-
